@@ -1,11 +1,9 @@
 package com.example.demo;
 
-import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -18,9 +16,10 @@ class UserServiceTest {
 
     @BeforeEach
     void setup() {
-        userStore = new UserStore(new ArrayList<>());
+        userStore = new UserStore(new HashMap<>());
         userConfig = new UserConfig();
         userConfig.setMaxUsers(2);
+
         userService = new UserService(userStore, userConfig);
     }
 

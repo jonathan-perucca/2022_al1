@@ -1,25 +1,30 @@
 package com.example.demo;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@Component
 public class UserStore {
 
-    private final List<String> db;
+    private final Map<String, User> db;
 
-    UserStore(List<String> db) {
+    UserStore(Map<String, User> db) {
         this.db = db;
     }
 
-    public void store(String username) {
-        db.add(username);
+    public User store(User user) {
+        db.put(user.getId(), user);
+        return user;
     }
 
     public int count() {
         return db.size();
     }
 
-    public List<String> findAll() {
-        return new ArrayList<>(db);
+    public List<User> findAll() {
+        return new ArrayList<>(db.values());
     }
 }

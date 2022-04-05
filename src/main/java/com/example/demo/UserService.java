@@ -1,7 +1,11 @@
 package com.example.demo;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.UUID;
+
+@Component
 public class UserService {
     private final UserStore userStore;
     private final UserConfig userConfig;
@@ -11,16 +15,19 @@ public class UserService {
         this.userConfig = userConfig;
     }
 
-    public void add(String username) {
+    public User add(String username) {
         if (userStore.count() + 1 > userConfig.getMaxUsers()) {
             throw new IllegalStateException("Could not add more users");
         }
 
-        userStore.store(username);
-        System.out.println("Stored " + username);
+        var user = new User()
+                .setId(UUID.randomUUID().toString())
+                .setUsername(username);
+        System.out.println("Storing user : " + user.getUsername());
+        return userStore.store(user);
     }
 
-    public List<String> getUsers() {
+    public List<User> getUsers() {
         return userStore.findAll();
     }
 }
