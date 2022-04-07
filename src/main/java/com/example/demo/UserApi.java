@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +43,15 @@ public class UserApi {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
+        var newUser = userService.add(request.getUsername());
+
+        return ResponseEntity.created(linkTo(
+                methodOn(UserApi.class).getUser(newUser.getId())
+        ).toUri()).build();
+    }
+
     private UserResource toResource(User user) {
         var userResource = new UserResource()
                 .setName(user.getUsername());
@@ -55,6 +61,11 @@ public class UserApi {
 
         return userResource;
     }
+}
+
+@Data
+class CreateUserRequest {
+    private String username;
 }
 
 @Data
