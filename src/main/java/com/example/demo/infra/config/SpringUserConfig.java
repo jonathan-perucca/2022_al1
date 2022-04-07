@@ -1,9 +1,10 @@
-package com.example.demo;
+package com.example.demo.infra.config;
 
+import com.example.demo.domain.UserConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "app")
-public class UserConfig {
+public class SpringUserConfig implements UserConfig {
     private int maxUsers;
 
     public int getMaxUsers() {
@@ -13,3 +14,4 @@ public class UserConfig {
         this.maxUsers = maxUsers;
     }
 }
+

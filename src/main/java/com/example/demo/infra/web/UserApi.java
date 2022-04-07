@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.example.demo.infra.web;
 
+import com.example.demo.domain.User;
+import com.example.demo.domain.UserService;
+import com.example.demo.infra.web.request.CreateUserRequest;
+import com.example.demo.infra.web.resource.UserResource;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
@@ -61,15 +65,4 @@ public class UserApi {
 
         return userResource;
     }
-}
-
-@Data
-class CreateUserRequest {
-    private String username;
-}
-
-@Data
-@Accessors(chain = true)
-class UserResource extends RepresentationModel {
-    private String name;
 }

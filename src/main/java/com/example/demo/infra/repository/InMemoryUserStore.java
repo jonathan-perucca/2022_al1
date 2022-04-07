@@ -1,17 +1,19 @@
-package com.example.demo;
+package com.example.demo.infra.repository;
 
-import org.springframework.stereotype.Component;
+import com.example.demo.domain.User;
+import com.example.demo.domain.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component
-public class UserStore {
+@Repository
+public class InMemoryUserStore implements UserRepository {
 
     private final Map<String, User> db;
 
-    UserStore(Map<String, User> db) {
+    public InMemoryUserStore(Map<String, User> db) {
         this.db = db;
     }
 
@@ -26,5 +28,10 @@ public class UserStore {
 
     public List<User> findAll() {
         return new ArrayList<>(db.values());
+    }
+
+    @Override
+    public void deleteAll() {
+        db.clear();
     }
 }

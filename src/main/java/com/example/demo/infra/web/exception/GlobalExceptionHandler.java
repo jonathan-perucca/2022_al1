@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.infra.web.exception;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

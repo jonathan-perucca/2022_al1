@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.infra.web.interceptor;
 
 import lombok.Data;
 import org.slf4j.Logger;
